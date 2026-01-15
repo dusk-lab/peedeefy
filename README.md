@@ -1,4 +1,4 @@
-# Peedeefy
+# Peedeefy - A complete PDF processing suite for the browser
 
 Peedeefy is a browser-based PDF utility suite focused on privacy, simplicity, and correctness.
 
