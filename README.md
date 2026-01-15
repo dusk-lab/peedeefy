@@ -1,73 +1,88 @@
-# React + TypeScript + Vite
+# Peedeefy
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Peedeefy is a browser-based PDF utility suite focused on privacy, simplicity, and correctness.
 
-Currently, two official plugins are available:
+All PDF processing is performed client-side. Files are never uploaded to a server.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+The project is intentionally designed to start as a fully static web application (hosted on GitHub Pages) and evolve into a full SaaAS platform without architectural rewrites.
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Project Goals
 
-## Expanding the ESLint configuration
+* Provide reliable, high-quality PDF tools in the browser
+* Preserve user privacy by default
+* Avoid unnecessary complexity
+* Build a foundation that scales into paid offerings
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+---
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Core Principles
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+* **Client-side first**: No backend required for MVP
+* **Privacy-first**: Files never leave the device
+* **Deterministic execution**: Clear scope, no hidden behavior
+* **Incremental growth**: MVP → Free → Paid → Enterprise
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+---
+
+## Feature Scope
+
+The detailed feature breakdown is maintained in:
+
+* `plans.md` — Product plans, MVP scope, free vs paid features
+
+At a high level, Peedeefy provides:
+
+* PDF merge, split, reorder, delete
+* PDF compression
+* PDF ↔ image conversion
+* Page preview and download
+
+---
+
+## Technology Stack
+
+* **Frontend**: Vite + React
+* **Language**: TypeScript
+* **Styling**: Utility-first CSS (TBD)
+* **PDF Processing**: Client-side libraries only
+* **Hosting**: GitHub Pages
+
+---
+
+## Repository Structure
+
+```
+/
+├─ README.md        # Project overview
+├─ plans.md         # Product and pricing plans
+└─ src/             # Application source (Vite + React)
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Development Status
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+* Product planning: complete
+* Architecture: defined
+* Implementation: not started
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+---
+
+## Non-Goals
+
+* No user accounts in MVP
+* No cloud storage in MVP
+* No collaboration features
+* No opaque processing
+
+---
+
+## License
+
+License will be defined before public release.
+
+---
+
+## Final Note
+
+Peedeefy prioritizes correctness, privacy, and clarity over speed of feature delivery.
