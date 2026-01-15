@@ -1,30 +1,32 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import '../styles/Layout.css';
 
 export const MainLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     return (
-        <div className="flex flex-col min-h-screen bg-background text-text-primary">
+        <div className="layout-wrapper">
             {/* Header */}
-            <header className="bg-surface border-b border-border shadow-sm sticky top-0 z-10">
-                <div className="container h-16 flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                        <span className="text-xl font-bold text-primary">Peedeefy</span>
-                    </div>
-                    <nav className="hidden md:flex items-center gap-6 text-sm font-medium text-text-secondary">
-                        <a href="#" className="hover:text-primary transition-colors">Tools</a>
-                        <a href="#" className="hover:text-primary transition-colors">About</a>
+            <header className="navbar">
+                <div className="navbar-container">
+                    <Link to="/" className="navbar-brand">
+                        <span className="brand-icon">⚡</span>
+                        <span>Peedeefy</span>
+                    </Link>
+                    <nav className="navbar-links hidden md:flex">
+                        <Link to="/" className="nav-link">Tools</Link>
                     </nav>
                 </div>
             </header>
 
             {/* Main Content */}
-            <main className="flex-1 container py-8">
+            <main className="main-content">
                 {children}
             </main>
 
             {/* Footer */}
-            <footer className="bg-surface border-t border-border mt-auto">
-                <div className="container py-8 text-center text-sm text-text-muted">
-                    <p>&copy; {new Date().getFullYear()} <a href="https://dusk-lab.github.io/main-website" target='_blank' rel='noopener noreferrer'>Dusk Labs</a>. Privacy first. No uploads.</p>
+            <footer className="footer">
+                <div className="footer-container">
+                    <p>&copy; {new Date().getFullYear()} <a href="https://dusk-lab.github.io/main-website" target='_blank' rel='noopener noreferrer' className="footer-link">Dusk Labs</a>. Privacy first. No uploads.</p>
                 </div>
             </footer>
         </div>

@@ -1,0 +1,103 @@
+/* Layout Wrapper */
+.layout-wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: var(--color-background);
+}
+
+/* Navbar */
+.navbar {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background-color: rgba(255, 255, 255, 0.7);
+    /* Fallback */
+    background-color: rgba(var(--color-surface-rgb, 255, 255, 255), 0.7);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--color-border);
+    transition: all 0.2s ease;
+}
+
+.navbar-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+    /* fixed height */
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--spacing-4);
+}
+
+.navbar-brand {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-2);
+    text-decoration: none;
+    color: var(--color-text-primary);
+    font-weight: 700;
+    font-size: 1.25rem;
+}
+
+.brand-icon {
+    font-size: 1.5rem;
+    background: linear-gradient(135deg, var(--color-primary), var(--color-primary-hover));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.navbar-links {
+    display: flex;
+    gap: var(--spacing-6);
+}
+
+.nav-link {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--color-text-secondary);
+    transition: color 0.2s ease;
+}
+
+.nav-link:hover {
+    color: var(--color-primary);
+}
+
+/* Main Content */
+.main-content {
+    flex: 1;
+    /* Pushes footer down */
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: var(--spacing-8) var(--spacing-4);
+}
+
+/* Footer */
+.footer {
+    margin-top: auto;
+    background-color: var(--color-surface);
+    border-top: 1px solid var(--color-border);
+    padding: var(--spacing-8) 0;
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--spacing-4);
+    text-align: center;
+    color: var(--color-text-muted);
+    font-size: 0.875rem;
+}
+
+.footer-link {
+    color: var(--color-text-primary);
+    font-weight: 500;
+    text-decoration: none;
+}
+
+.footer-link:hover {
+    text-decoration: underline;
+}
