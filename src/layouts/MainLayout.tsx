@@ -24,7 +24,7 @@ export const MainLayout: React.FC<{ children: React.ReactNode }> = ({ children }
             {/* Footer */}
             <footer className="bg-surface border-t border-border mt-auto">
                 <div className="container py-8 text-center text-sm text-text-muted">
-                    <p>&copy; {new Date().getFullYear()} Peedeefy. Privacy first. No uploads.</p>
+                    <p>&copy; {new Date().getFullYear()} <a href="https://dusk-lab.github.io/main-website" target='_blank' rel='noopener noreferrer'>Dusk Labs</a>. Privacy first. No uploads.</p>
                 </div>
             </footer>
         </div>
