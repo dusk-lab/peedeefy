@@ -1,4 +1,5 @@
 import { HashRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { MdCallMerge, MdContentCut, MdViewModule, MdCompress, MdImage, MdPictureAsPdf } from 'react-icons/md';
 
 import { MainLayout } from './layouts/MainLayout';
 import { MergeTool } from './pages/merge/MergeTool';
@@ -25,27 +26,27 @@ const LandingPage = () => (
 
     <div className="features-grid">
       <Link to="/merge" className="feature-card">
-        <span className="card-icon">🖇️</span>
+        <MdCallMerge className="card-icon text-4xl mb-4 text-primary" />
         <h3 className="card-title">Merge PDF</h3>
       </Link>
       <Link to="/split" className="feature-card">
-        <span className="card-icon">✂️</span>
+        <MdContentCut className="card-icon text-4xl mb-4 text-primary" />
         <h3 className="card-title">Split PDF</h3>
       </Link>
       <Link to="/organize" className="feature-card">
-        <span className="card-icon">📑</span>
+        <MdViewModule className="card-icon text-4xl mb-4 text-primary" />
         <h3 className="card-title">Organize</h3>
       </Link>
       <Link to="/compress" className="feature-card">
-        <span className="card-icon">🗜️</span>
+        <MdCompress className="card-icon text-4xl mb-4 text-primary" />
         <h3 className="card-title">Compress</h3>
       </Link>
       <Link to="/images-to-pdf" className="feature-card">
-        <span className="card-icon">🖼️</span>
+        <MdImage className="card-icon text-4xl mb-4 text-primary" />
         <h3 className="card-title">Images to PDF</h3>
       </Link>
       <Link to="/pdf-to-images" className="feature-card">
-        <span className="card-icon">📸</span>
+        <MdPictureAsPdf className="card-icon text-4xl mb-4 text-primary" />
         <h3 className="card-title">PDF to Images</h3>
       </Link>
     </div>
