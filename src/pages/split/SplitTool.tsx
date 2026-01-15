@@ -86,19 +86,8 @@ export const SplitTool: React.FC = () => {
         const finalName = filename.trim() || placeholderName;
 
         if (quality === 'original') {
-            // User requested "Highest Quality" (Rasterize at 1.0)
-            setIsProcessing(true);
-            try {
-                const blob = new Blob([splitPdf as BlobPart], { type: 'application/pdf' });
-                const fileObj = new File([blob], finalName, { type: 'application/pdf' });
-                const highQualityBytes = await compressPDF(fileObj, 1.0, 1.0);
-                downloadPDF(highQualityBytes, finalName);
-            } catch (err) {
-                console.error(err);
-                downloadPDF(splitPdf, finalName); // Fallback
-            } finally {
-                setIsProcessing(false);
-            }
+             // Download raw PDF to preserve vectors/text
+             downloadPDF(splitPdf, finalName);
         } else if (quality === 'compressed') {
             setIsProcessing(true);
             try {
