@@ -81,7 +81,23 @@ export const MergeTool: React.FC = () => {
         const finalName = filename.trim() || placeholderName;
 
         if (quality === 'original') {
-            downloadPDF(mergedPdf, finalName);
+            // User requested "Highest Quality" which seemingly implies High Res Rasterization (matching "Less Compression" style)
+            // per user feedback that "Original" (Vector) was too small/different.
+            setIsProcessing(true);
+            try {
+                const blob = new Blob([mergedPdf as BlobPart], { type: 'application/pdf' });
+                const file = new File([blob], finalName, { type: 'application/pdf' });
+                // Use Max Quality (1.0)
+                const highQualityBytes = await compressPDF(file, 1.0, 1.0);
+                downloadPDF(highQualityBytes, finalName);
+            } catch (err) {
+                console.error(err);
+                // Fallback to raw merge if fail
+                downloadPDF(mergedPdf, finalName);
+            } finally {
+                setIsProcessing(false);
+            }
+
         } else if (quality === 'compressed') {
             // Experimental: Compress the *created* PDF
             setIsProcessing(true);
@@ -125,12 +141,12 @@ export const MergeTool: React.FC = () => {
                         <h3 className="font-bold text-lg mb-4">Download Options</h3>
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                            <button onClick={() => handleDownload('original')} className="p-4 border border-primary bg-primary/5 rounded-lg hover:bg-primary/10 transition-colors text-left flex flex-col justify-between">
+                            <button onClick={() => handleDownload('original')} disabled={isProcessing} className="p-4 border border-primary bg-primary/5 rounded-lg hover:bg-primary/10 transition-colors text-left flex flex-col justify-between disabled:opacity-50">
                                 <div>
                                     <div className="font-bold text-text-primary">Original Quality</div>
                                     <div className="text-sm text-text-muted">Best for printing. Max file size.</div>
                                 </div>
-                                <div className="mt-4 text-primary font-bold">Download ⬇️</div>
+                                <div className="mt-4 text-primary font-bold">{isProcessing ? 'Processing...' : 'Download ⬇️'}</div>
                             </button>
 
                             <div className="p-4 border border-border bg-surface rounded-lg hover:border-primary transition-colors text-left flex flex-col justify-between">
