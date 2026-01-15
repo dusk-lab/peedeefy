@@ -1,125 +1,94 @@
 .landing-page {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: var(--spacing-12) var(--spacing-4);
-    text-align: center;
-    min-height: calc(100vh - 80px);
-    /* Adjust for header */
-    background: radial-gradient(circle at 50% 0%, var(--color-primary-subtle) 0%, transparent 60%);
-}
-
-.landing-hero {
-    max-width: 800px;
-    margin-bottom: var(--spacing-12);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: var(--spacing-6);
-}
-
-.hero-title {
-    font-size: 2.5rem;
-    font-weight: 800;
-    line-height: 1.1;
-    letter-spacing: -0.02em;
-    color: var(--color-text-primary);
-}
-
-@media (min-width: 768px) {
-    .hero-title {
-        font-size: 4rem;
-    }
-}
-
-.highlight-text {
-    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-hover) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-}
-
-.hero-subtitle {
-    font-size: 1.125rem;
-    color: var(--color-text-secondary);
-    line-height: 1.6;
-    max-width: 600px;
-}
-
-@media (min-width: 768px) {
-    .hero-subtitle {
-        font-size: 1.25rem;
-    }
-}
-
-/* Feature Grid */
-.features-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: var(--spacing-6);
-    width: 100%;
-    max-width: 900px;
+    max-width: 1200px;
+    margin: 0 auto;
     padding: 0 var(--spacing-4);
 }
 
-@media (min-width: 768px) {
-    .features-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
+.landing-hero {
+    text-align: center;
+    padding: 80px 0;
+}
+
+.hero-title {
+    font-size: 3.5rem;
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: var(--spacing-6);
+    background: linear-gradient(135deg, var(--color-text-primary) 0%, var(--color-text-secondary) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.highlight-text {
+    color: var(--color-primary);
+    -webkit-text-fill-color: var(--color-primary);
+}
+
+.hero-subtitle {
+    font-size: 1.25rem;
+    color: var(--color-text-secondary);
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+/* Tool Grid */
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    /* Responsive square tiles */
+    gap: var(--spacing-6);
+    padding-bottom: 60px;
 }
 
 .feature-card {
-    background-color: var(--color-surface);
-    padding: var(--spacing-8);
-    border-radius: var(--radius-lg);
+    aspect-ratio: 1 / 1;
+    /* Make it square */
+    background: var(--color-surface);
     border: 1px solid var(--color-border);
-    box-shadow: var(--shadow-sm);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    cursor: pointer;
-    text-align: left;
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-6);
+    text-decoration: none;
+    transition: all 0.2s ease;
     display: flex;
+    /* Flexbox for centering */
     flex-direction: column;
-    gap: var(--spacing-2);
-    position: relative;
-    overflow: hidden;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-4);
+    box-shadow: var(--shadow-sm);
 }
 
 .feature-card:hover {
     transform: translateY(-4px);
-    box-shadow: var(--shadow-lg);
-    border-color: var(--color-primary-subtle);
+    box-shadow: var(--shadow-md);
+    border-color: var(--color-primary);
 }
 
-.feature-card::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: linear-gradient(90deg, var(--color-primary), var(--color-primary-subtle));
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-.feature-card:hover::after {
-    opacity: 1;
+.card-icon {
+    font-size: 3rem;
+    /* Large icon */
+    line-height: 1;
 }
 
 .card-title {
-    font-size: 1.25rem;
-    font-weight: 700;
+    font-size: 1.125rem;
+    font-weight: 600;
     color: var(--color-text-primary);
+    margin: 0;
+    text-align: center;
 }
 
-.feature-card:hover .card-title {
-    color: var(--color-primary);
-    transition: color 0.2s ease;
-}
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .hero-title {
+        font-size: 2.5rem;
+    }
 
-.card-description {
-    font-size: 0.875rem;
-    color: var(--color-text-muted);
-    line-height: 1.5;
+    .features-grid {
+        grid-template-columns: repeat(2, 1fr);
+        /* 2 columns on mobile */
+    }
 }

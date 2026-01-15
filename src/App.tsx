@@ -26,28 +26,28 @@ const LandingPage = () => (
 
     <div className="features-grid">
       <Link to="/merge" className="feature-card">
-        <h3 className="card-title">Merge PDFs</h3>
-        <p className="card-description">Combine multiple files into one seamless document in seconds.</p>
+        <span className="card-icon">🖇️</span>
+        <h3 className="card-title">Merge PDF</h3>
       </Link>
       <Link to="/split" className="feature-card">
+        <span className="card-icon">✂️</span>
         <h3 className="card-title">Split PDF</h3>
-        <p className="card-description">Extract specific pages or split a large document into separate files.</p>
       </Link>
       <Link to="/organize" className="feature-card">
+        <span className="card-icon">📑</span>
         <h3 className="card-title">Organize</h3>
-        <p className="card-description">Reorder or delete pages visually.</p>
       </Link>
       <Link to="/compress" className="feature-card">
+        <span className="card-icon">🗜️</span>
         <h3 className="card-title">Compress</h3>
-        <p className="card-description">Reduce file size without uploading.</p>
       </Link>
       <Link to="/images-to-pdf" className="feature-card">
+        <span className="card-icon">🖼️</span>
         <h3 className="card-title">Images to PDF</h3>
-        <p className="card-description">Convert JPG/PNG images to PDF.</p>
       </Link>
       <Link to="/pdf-to-images" className="feature-card">
+        <span className="card-icon">📸</span>
         <h3 className="card-title">PDF to Images</h3>
-        <p className="card-description">Convert pages to high-quality images.</p>
       </Link>
     </div>
   </div>
