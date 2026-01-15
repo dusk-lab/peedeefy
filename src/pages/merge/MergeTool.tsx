@@ -73,6 +73,8 @@ export const MergeTool: React.FC = () => {
         }
     };
 
+    const [compressionQuality, setCompressionQuality] = useState(0.7); // Default: Recommended
+
     const handleDownload = async (quality?: 'original' | 'compressed') => {
         if (!mergedPdf) return;
 
@@ -86,8 +88,8 @@ export const MergeTool: React.FC = () => {
             try {
                 const blob = new Blob([mergedPdf as BlobPart], { type: 'application/pdf' });
                 const file = new File([blob], finalName, { type: 'application/pdf' });
-                // Use "Recommended" settings: 0.7 quality
-                const compressedBytes = await compressPDF(file, 0.7, 1.0);
+                // Use selected quality
+                const compressedBytes = await compressPDF(file, compressionQuality, 1.0);
                 downloadPDF(compressedBytes, finalName.replace('.pdf', '_compressed.pdf'));
             } catch (err) {
                 console.error(err);
@@ -123,16 +125,38 @@ export const MergeTool: React.FC = () => {
                         <h3 className="font-bold text-lg mb-4">Download Options</h3>
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                            <button onClick={() => handleDownload('original')} className="p-4 border border-primary bg-primary/5 rounded-lg hover:bg-primary/10 transition-colors text-left">
-                                <div className="font-bold text-text-primary">Original Quality</div>
-                                <div className="text-sm text-text-muted">Best for printing. Max file size.</div>
-                                <div className="mt-2 text-primary font-bold">Download ⬇️</div>
+                            <button onClick={() => handleDownload('original')} className="p-4 border border-primary bg-primary/5 rounded-lg hover:bg-primary/10 transition-colors text-left flex flex-col justify-between">
+                                <div>
+                                    <div className="font-bold text-text-primary">Original Quality</div>
+                                    <div className="text-sm text-text-muted">Best for printing. Max file size.</div>
+                                </div>
+                                <div className="mt-4 text-primary font-bold">Download ⬇️</div>
                             </button>
-                            <button onClick={() => handleDownload('compressed')} className="p-4 border border-border bg-surface rounded-lg hover:border-primary transition-colors text-left" disabled={isProcessing}>
-                                <div className="font-bold text-text-primary">Compressed</div>
-                                <div className="text-sm text-text-muted">Smaller size. Good for sharing.</div>
-                                <div className="mt-2 text-text-secondary font-bold">{isProcessing ? 'Compressing...' : 'Compress & Download ⬇️'}</div>
-                            </button>
+
+                            <div className="p-4 border border-border bg-surface rounded-lg hover:border-primary transition-colors text-left flex flex-col justify-between">
+                                <div>
+                                    <div className="font-bold text-text-primary">Compressed</div>
+                                    <div className="text-sm text-text-muted mb-3">Smaller size. Good for sharing.</div>
+
+                                    <label className="text-xs font-semibold text-text-secondary uppercase tracking-wider mb-1 block">Quality Level</label>
+                                    <select
+                                        value={compressionQuality}
+                                        onChange={(e) => setCompressionQuality(parseFloat(e.target.value))}
+                                        className="w-full p-2 mb-2 text-sm border border-border rounded bg-background outline-none focus:border-primary"
+                                    >
+                                        <option value={0.5}>Extreme Compression (Low Quality)</option>
+                                        <option value={0.7}>Recommended (Balanced)</option>
+                                        <option value={0.9}>Less Compression (High Quality)</option>
+                                    </select>
+                                </div>
+                                <button
+                                    onClick={() => handleDownload('compressed')}
+                                    disabled={isProcessing}
+                                    className="w-full py-2 bg-text-secondary text-white rounded hover:bg-text-primary transition-colors mt-2 font-bold disabled:opacity-50"
+                                >
+                                    {isProcessing ? 'Compressing...' : 'Compress & Download ⬇️'}
+                                </button>
+                            </div>
                         </div>
 
                         <div className="flex gap-4 justify-center">
