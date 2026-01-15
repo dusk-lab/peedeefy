@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { PDFDocument } from 'pdf-lib';
 import { ToolLayout } from '../../layouts/ToolLayout';
 import { extractPages, downloadPDF } from '../../utils/pdf';
-import { compressPDF } from '../../utils/compress';
 import { parsePageRange, isValidRangeFormat } from '../../utils/ranges';
 import '../../styles/Tools.css';
 
@@ -18,7 +17,6 @@ export const SplitTool: React.FC = () => {
     const [splitPdf, setSplitPdf] = useState<Uint8Array | null>(null); // Store result
     const [filename, setFilename] = useState('');
     const [placeholderName, setPlaceholderName] = useState('');
-    const [compressionQuality, setCompressionQuality] = useState(0.7);
 
     // Update placeholder time
     useEffect(() => {
@@ -80,28 +78,10 @@ export const SplitTool: React.FC = () => {
         }
     };
 
-    const handleDownload = async (quality?: 'original' | 'compressed') => {
+    const handleDownload = async () => {
         if (!splitPdf) return;
-
         const finalName = filename.trim() || placeholderName;
-
-        if (quality === 'original') {
-             // Download raw PDF to preserve vectors/text
-             downloadPDF(splitPdf, finalName);
-        } else if (quality === 'compressed') {
-            setIsProcessing(true);
-            try {
-                const blob = new Blob([splitPdf as BlobPart], { type: 'application/pdf' });
-                const fileObj = new File([blob], finalName, { type: 'application/pdf' });
-                const compressedBytes = await compressPDF(fileObj, compressionQuality, 1.0);
-                downloadPDF(compressedBytes, finalName.replace('.pdf', '_compressed.pdf'));
-            } catch (err) {
-                console.error(err);
-                alert('Compression failed.');
-            } finally {
-                setIsProcessing(false);
-            }
-        }
+        downloadPDF(splitPdf, finalName);
     };
 
     const handleEdit = () => {
@@ -135,39 +115,17 @@ export const SplitTool: React.FC = () => {
                     <div className="bg-surface p-6 rounded-xl border border-border shadow-sm">
                         <h3 className="font-bold text-lg mb-4">Download Options</h3>
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                            <button onClick={() => handleDownload('original')} disabled={isProcessing} className="p-4 border border-primary bg-primary/5 rounded-lg hover:bg-primary/10 transition-colors text-left flex flex-col justify-between disabled:opacity-50">
+                        <div className="flex flex-col items-center justify-center mb-6">
+                            <button onClick={handleDownload} disabled={isProcessing} className="p-6 border-2 border-primary bg-primary/5 rounded-xl hover:bg-primary/10 transition-all text-left flex flex-col justify-between disabled:opacity-50 min-w-[300px] shadow-sm hover:shadow-md">
                                 <div>
-                                    <div className="font-bold text-text-primary">Original Quality</div>
-                                    <div className="text-sm text-text-muted">Best for printing. Max file size.</div>
+                                    <div className="font-bold text-xl text-text-primary mb-1">Download PDF</div>
+                                    <div className="text-sm text-text-muted">Save your extracted pages.</div>
                                 </div>
-                                <div className="mt-4 text-primary font-bold">{isProcessing ? 'Processing...' : 'Download ⬇️'}</div>
+                                <div className="mt-6 text-primary font-bold text-lg flex items-center justify-between">
+                                    <span>{isProcessing ? 'Processing...' : 'Download Now'}</span>
+                                    <span className="text-2xl">⬇️</span>
+                                </div>
                             </button>
-
-                            <div className="p-4 border border-border bg-surface rounded-lg hover:border-primary transition-colors text-left flex flex-col justify-between">
-                                <div>
-                                    <div className="font-bold text-text-primary">Compressed</div>
-                                    <div className="text-sm text-text-muted mb-3">Smaller size. Good for sharing.</div>
-
-                                    <label className="text-xs font-semibold text-text-secondary uppercase tracking-wider mb-1 block">Quality Level</label>
-                                    <select
-                                        value={compressionQuality}
-                                        onChange={(e) => setCompressionQuality(parseFloat(e.target.value))}
-                                        className="w-full p-2 mb-2 text-sm border border-border rounded bg-background outline-none focus:border-primary"
-                                    >
-                                        <option value={0.5}>Extreme Compression (Low Quality)</option>
-                                        <option value={0.7}>Recommended (Balanced)</option>
-                                        <option value={0.9}>Less Compression (High Quality)</option>
-                                    </select>
-                                </div>
-                                <button
-                                    onClick={() => handleDownload('compressed')}
-                                    disabled={isProcessing}
-                                    className="w-full py-2 bg-text-secondary text-white rounded hover:bg-text-primary transition-colors mt-2 font-bold disabled:opacity-50"
-                                >
-                                    {isProcessing ? 'Compressing...' : 'Compress & Download ⬇️'}
-                                </button>
-                            </div>
                         </div>
 
                         <div className="flex gap-4 justify-center">
