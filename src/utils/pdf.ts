@@ -27,8 +27,36 @@ export async function extractPages(file: File, pageIndices: number[]): Promise<U
     return newPdf.save();
 }
 
-export function downloadPDF(data: Uint8Array, filename: string) {
+export async function downloadPDF(data: Uint8Array, filename: string) {
     const blob = new Blob([data as BlobPart], { type: 'application/pdf' });
+
+    // Modern API: showSaveFilePicker (Allows user to choose location)
+    if ('showSaveFilePicker' in window) {
+        try {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            const handle = await (window as any).showSaveFilePicker({
+                suggestedName: filename,
+                types: [{
+                    description: 'PDF Document',
+                    accept: { 'application/pdf': ['.pdf'] },
+                }],
+            });
+            const writable = await handle.createWritable();
+            await writable.write(blob);
+            await writable.close();
+            return;
+        } catch (err: unknown) {
+            // User cancelled or API failed -> Fallback to anchor
+            // Check if error is 'AbortError' (User cancelled)
+            if ((err as Error).name !== 'AbortError') {
+                console.warn('File System Access API failed, falling back to download link.', err);
+            } else {
+                return; // User cancelled, do nothing
+            }
+        }
+    }
+
+    // Fallback: Anchor tag method
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
