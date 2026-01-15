@@ -1,8 +1,9 @@
 import * as pdfjsLib from 'pdfjs-dist';
 
-// Define the worker source URL (using CDN for simplicity/reliability in Vite without complex config)
-// In a production app, we might copy the worker file to public/
-pdfjsLib.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjsLib.version}/build/pdf.worker.min.js`;
+// Use Vite's ?url import to get the path to the worker file in node_modules
+import pdfWorker from 'pdfjs-dist/build/pdf.worker.min.mjs?url';
+
+pdfjsLib.GlobalWorkerOptions.workerSrc = pdfWorker;
 
 export interface PDFPreviewData {
     pageCount: number;
