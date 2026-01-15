@@ -38,3 +38,13 @@ export function downloadPDF(data: Uint8Array, filename: string) {
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
 }
+
+/**
+ * Reorders or deletes pages from a PDF.
+ * @param file Source PDF file
+ * @param pageIndices Array of 0-based page indices to keep, in the desired order.
+ */
+export async function modifyPdfPages(file: File, pageIndices: number[]): Promise<Uint8Array> {
+    return extractPages(file, pageIndices);
+}
+
