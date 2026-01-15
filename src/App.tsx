@@ -1,5 +1,5 @@
 import { HashRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import { ToolLayout } from './layouts/ToolLayout';
+
 import { MainLayout } from './layouts/MainLayout';
 import { MergeTool } from './pages/merge/MergeTool';
 import { SplitTool } from './pages/split/SplitTool';
@@ -8,8 +8,7 @@ import { ImagesToPdfTool } from './pages/convert/ImagesToPdf';
 import { PdfToImagesTool } from './pages/convert/PdfToImages';
 import './styles/LandingPage.css';
 
-// Placeholder components for tools
-const CompressTool = () => <ToolLayout title="Compress PDF" description="Reduce file size"><div className="text-center py-12 text-text-muted">Tool coming soon...</div></ToolLayout>;
+import { CompressTool } from './pages/compress/CompressTool';
 
 const LandingPage = () => (
   <div className="landing-page">

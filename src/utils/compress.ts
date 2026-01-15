@@ -1,10 +1,9 @@
 import { PDFDocument } from 'pdf-lib';
-import * as pdfjsLib from 'pdfjs-dist';
 
 // Ensure worker is set up (should be done in entry point or preview utils, but safe to set here too)
 // Importing the preview util creates a circular dependency if we aren't careful, so we rely on global worker setup or re-import the loading logic.
 // Actually, let's reuse loadPDFForPreview logic or similar to get the Proxy.
-import { loadPDFForPreview, renderPageToImage } from './preview';
+import { loadPDFForPreview } from './preview';
 
 /**
  * Compresses a PDF by rendering each page to a JPEG and re-embedding it.
