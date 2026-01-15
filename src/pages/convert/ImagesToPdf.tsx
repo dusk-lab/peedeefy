@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { ToolLayout } from '../../layouts/ToolLayout';
 import { imagesToPDF } from '../../utils/images';
 import { downloadPDF } from '../../utils/pdf';
+import { MdCloudUpload, MdImage, MdArrowUpward, MdArrowDownward, MdDelete } from 'react-icons/md';
 import '../../styles/Tools.css';
 
 export const ImagesToPdfTool: React.FC = () => {
@@ -57,7 +58,7 @@ export const ImagesToPdfTool: React.FC = () => {
                         onChange={handleFileInput}
                         style={{ display: 'none' }}
                     />
-                    <div className="drop-icon">🖼️</div>
+                    <MdCloudUpload className="drop-icon text-6xl mb-4 text-primary" />
                     <div className="text-center">
                         <p className="drop-text">Select Images (JPG, PNG)</p>
                     </div>
@@ -68,13 +69,13 @@ export const ImagesToPdfTool: React.FC = () => {
                         {files.map((file, index) => (
                             <div key={`${file.name}-${index}`} className="file-item">
                                 <div className="file-info">
-                                    <span className="text-2xl">📷</span>
+                                    <MdImage className="text-2xl text-text-secondary" />
                                     <span className="file-name">{file.name}</span>
                                 </div>
                                 <div className="file-actions">
-                                    <button onClick={() => moveFile(index, -1)} disabled={index === 0} className="action-btn">⬆️</button>
-                                    <button onClick={() => moveFile(index, 1)} disabled={index === files.length - 1} className="action-btn">⬇️</button>
-                                    <button onClick={() => removeFile(index)} className="action-btn delete">✕</button>
+                                    <button onClick={() => moveFile(index, -1)} disabled={index === 0} className="action-btn"><MdArrowUpward/></button>
+                                    <button onClick={() => moveFile(index, 1)} disabled={index === files.length - 1} className="action-btn"><MdArrowDownward/></button>
+                                    <button onClick={() => removeFile(index)} className="action-btn delete"><MdDelete/></button>
                                 </div>
                             </div>
                         ))}

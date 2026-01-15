@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { ToolLayout } from '../../layouts/ToolLayout';
 import { loadPDFForPreview, renderPageToImage } from '../../utils/preview';
 import { modifyPdfPages, downloadPDF } from '../../utils/pdf';
+import { MdCloudUpload, MdArrowBack, MdArrowForward, MdDelete } from 'react-icons/md';
 import '../../styles/Tools.css';
 
 export const OrganizeTool: React.FC = () => {
@@ -83,9 +84,9 @@ export const OrganizeTool: React.FC = () => {
                             onChange={handleFileChange}
                             style={{ display: 'none' }}
                         />
-                        <div className="drop-icon">📄</div>
+                        <MdCloudUpload className="drop-icon text-6xl mb-4 text-primary" />
                         <div className="text-center">
-                            <p className="drop-text">Select a PDF to organize</p>
+                            <p className="drop-text font-bold">Select a PDF to organize</p>
                         </div>
                     </label>
                 ) : (
@@ -116,13 +117,13 @@ export const OrganizeTool: React.FC = () => {
                                     <div className="aspect-[1/1.4] relative">
                                         <img src={page.image} alt={`Page ${page.index + 1}`} className="w-full h-full object-contain bg-gray-100" />
                                         <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
-                                            <button onClick={() => movePage(i, -1)} disabled={i === 0} className="p-2 bg-white rounded-full text-black hover:bg-gray-200 disabled:opacity-50">⬅️</button>
-                                            <button onClick={() => movePage(i, 1)} disabled={i === pages.length - 1} className="p-2 bg-white rounded-full text-black hover:bg-gray-200 disabled:opacity-50">➡️</button>
+                                            <button onClick={() => movePage(i, -1)} disabled={i === 0} className="p-2 bg-white rounded-full text-black hover:bg-gray-200 disabled:opacity-50"><MdArrowBack/></button>
+                                            <button onClick={() => movePage(i, 1)} disabled={i === pages.length - 1} className="p-2 bg-white rounded-full text-black hover:bg-gray-200 disabled:opacity-50"><MdArrowForward/></button>
                                         </div>
                                     </div>
                                     <div className="p-2 flex justify-between items-center text-xs border-t border-border bg-surface">
                                         <span className="text-text-muted">Pg {page.index + 1}</span>
-                                        <button onClick={() => deletePage(i)} className="text-error hover:text-red-700 font-bold">✕ DEL</button>
+                                        <button onClick={() => deletePage(i)} className="text-error hover:text-red-700 font-bold flex items-center gap-1"><MdDelete/> DEL</button>
                                     </div>
                                 </div>
                             ))}
